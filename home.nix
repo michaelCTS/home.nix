@@ -30,7 +30,9 @@ in
     fd
     htop
     lazygit
+    ltrace
     ripgrep
+    strace
     wget
 
 
