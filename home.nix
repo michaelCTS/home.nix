@@ -36,6 +36,9 @@ in
     strace
     wget
 
+    # devenv
+    (import (fetchTarball https://install.devenv.sh/latest)).default
+
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
