@@ -31,6 +31,7 @@ in
     htop
     lazygit
     ltrace
+    ps_mem
     ripgrep
     strace
     wget
