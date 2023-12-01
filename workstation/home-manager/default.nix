@@ -7,7 +7,7 @@
   home.username = lib.mkForce "user";
   home.homeDirectory = lib.mkForce "/home/user";
   home.packages = with pkgs; [
-    azuredatastudio
+    dbeaver
     jetbrains.pycharm-professional
     konsole
     lunarvim
