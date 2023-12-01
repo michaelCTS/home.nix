@@ -13,6 +13,10 @@ in
     sctl = "${supervisorctl} -c ${config.home.homeDirectory}/${supervisorConf}";
   };
 
+  home.packages = with pkgs; [
+    enlightenment.enlightenment
+  ];
+
   # TODO make it possible to generate this with nix
   home.file.supervisord = {
     enable = true;
@@ -30,7 +34,7 @@ supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
 
 [program:turbovnc]
 autostart = true
-command = ${pkgs.turbovnc}/bin/vncserver -fg -xstartup ${pkgs.icewm}/bin/icewm
+command = ${pkgs.turbovnc}/bin/vncserver -fg -xstartup enlightenment_start
 [program:novnc]
 autostart = true
 command = ${pkgs.novnc}/bin/novnc --vnc 127.0.0.1:5901 --listen localhost:8080
