@@ -1,9 +1,13 @@
 { config, pkgs, lib, ... }:
 
+let
+  specificImport = if builtins.pathExists "${./.}/specific"
+    then [ ./specific ] else [];
+in
 {
   imports = [
     ./vnc.nix
-  ];
+  ] ++ specificImport ;
   home.username = lib.mkForce "user";
   home.homeDirectory = lib.mkForce "/home/user";
   home.packages = with pkgs; [
