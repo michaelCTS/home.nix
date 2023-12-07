@@ -5,6 +5,12 @@ let
   supervisord = "${py311.supervisor}/bin/supervisord";
   supervisorctl = "${py311.supervisor}/bin/supervisorctl";
   supervisorConf = ".config/supervisor/daemon.conf";
+  openboxAutostart = pkgs.writeShellScript "openbox-autostart" ''
+    # Create menus
+    mmaker --force -t Konsole OpenBox
+    # Start panel
+    tint2
+  '';
 in
 {
 
@@ -14,8 +20,20 @@ in
   };
 
   home.packages = with pkgs; [
-    enlightenment.enlightenment
+    # VNC
+    novnc
+    turbovnc
+    # Window manager
+    menumaker # Create menurs for certain window managers
+    openbox
+    tint2
   ];
+
+  xdg.configFile."openbox-autostart" = {
+    enable = true;
+    source = openboxAutostart;
+    target = "openbox/autostart.sh";
+  };
 
   # TODO make it possible to generate this with nix
   home.file.supervisord = {
@@ -34,10 +52,12 @@ supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
 
 [program:turbovnc]
 autostart = true
-command = ${pkgs.turbovnc}/bin/vncserver -fg -xstartup enlightenment_start
+command = ${pkgs.turbovnc}/bin/vncserver -fg -xstartup openbox-session -log /dev/stdout :99
+stopasgroup = true
+killasgroup = true
 [program:novnc]
 autostart = true
-command = ${pkgs.novnc}/bin/novnc --vnc 127.0.0.1:5901 --listen localhost:8080
+command = ${pkgs.novnc}/bin/novnc --vnc 127.0.0.1:5999 --listen localhost:8080
 '';
   };
 
