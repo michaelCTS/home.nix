@@ -5,6 +5,7 @@ let
   supervisord = "${py311.supervisor}/bin/supervisord";
   supervisorctl = "${py311.supervisor}/bin/supervisorctl";
   supervisorConf = ".config/supervisor/daemon.conf";
+  supervisorConfDir = ".config/supervisor/conf.d";
   openboxAutostart = pkgs.writeShellScript "openbox-autostart" ''
     # Create menus
     mmaker --force -t Konsole OpenBox
@@ -36,25 +37,17 @@ in
   };
 
   # TODO make it possible to generate this with nix
-  home.file.supervisord = {
+  home.file.supervisord_vnc = {
     enable = true;
-    target = supervisorConf;
+    target = "${supervisorConfDir}/999_vnc.conf";
     text = ''
-[supervisord]
-pidfile = %(ENV_HOME)s/.cache/supervisord/pid
-
-[unix_http_server]
-file = %(ENV_HOME)s/.cache/supervisord/http.sock
-[supervisorctl]
-serverurl=unix://%(ENV_HOME)s/.cache/supervisord/http.sock
-[rpcinterface:supervisor]
-supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
 
 [program:turbovnc]
 autostart = true
 command = ${pkgs.turbovnc}/bin/vncserver -fg -xstartup openbox-session -log /dev/stdout :99
 stopasgroup = true
 killasgroup = true
+
 [program:novnc]
 autostart = true
 command = ${pkgs.novnc}/bin/novnc --vnc 127.0.0.1:5999 --listen localhost:8080
