@@ -8,6 +8,7 @@ let
 in
 {
   imports = [
+    ./ssh.nix
     ./vnc.nix
   ] ++ specificImport ;
   home.username = lib.mkForce "user";
@@ -49,31 +50,5 @@ supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
 [include]
 files = %(ENV_HOME)s/${supervisorConfDir}/*.conf
   '';
-  };
-  home.file.supervisord_ssh_agend = {
-    enable = true;
-    target = "${supervisorConfDir}/100_ssh_agent.conf";
-    text = ''
-[program:ssh-agent]
-autostart = true
-command = ${pkgs.openssh}/bin/ssh-agent -D -a %(ENV_HOME)s/.cache/ssh-agent.sock
-  '';
-  };
-
-  home.sessionVariablesExtra = ''
-    if [[ -z "$SSH_AUTH_SOCK" ]]; then
-      export SSH_AUTH_SOCK=$HOME/.cache/ssh-agent.sock
-    fi
-  '';
-
-  home.file.sshKey = {
-    enable = true;
-    source = ./ssh_keys/private;
-    target = ".ssh/id_ed25519";
-  };
-  home.file.sshKeyPub = {
-    enable = true;
-    source = ./ssh_keys/public;
-    target = ".ssh/id_ed25519.pub";
   };
 }
