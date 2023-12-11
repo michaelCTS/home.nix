@@ -30,6 +30,13 @@ in
     tint2
   ];
 
+  home.file.vncConfig = {
+    enable = true;
+    target = ".vnc/turbovncserver.conf";
+    text = ''
+geometry=1920x1080
+    '';
+  };
   xdg.configFile."openbox-autostart" = {
     enable = true;
     source = openboxAutostart;

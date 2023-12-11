@@ -76,16 +76,4 @@ command = ${pkgs.openssh}/bin/ssh-agent -D -a %(ENV_HOME)s/.cache/ssh-agent.sock
     source = ./ssh_keys/public;
     target = ".ssh/id_ed25519.pub";
   };
-  # TODO: setup session
-  # https://github.com/TurboVNC/turbovnc/blob/b4fd6ae2a15f08c6052918d29511dffe37e4dae3/unix/turbovncserver.conf.in#L4
-  # Use wm = $pathToSession.desktop
-  # wm = ${pkgs.icewm}/share/xsessions/icewm-session.desktop
-  home.file.vncConfig = {
-    enable = true;
-    target = ".vnc/turbovncserver.conf";
-    text = ''
-geometry=1920x1080
-    '';
-  };
-
 }
