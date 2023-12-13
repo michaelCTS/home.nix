@@ -72,3 +72,43 @@ Simply open your favorite browser at http://localhost:8080/vnc.html?host=127.0.0
 
 If you have a fast connection, open your favorite RDC client and open vnc://localhost:5900
 
+# Custom configuration
+
+Should you want to customise your setup in ways that should end up in version control,
+ use `home-manager/specific/default.nix`.
+The entire folder is ignored by git.
+
+All options can be found using the [home-manager option search][hm-search]
+
+## Example
+
+```nix
+
+{ config, pkgs, ...}:
+
+{
+
+  programs.git = {
+    enable = true;
+    extraConfig = {
+      user = {
+        name = "Michael Vogel";
+        email = "michael.vogel@cts.co";
+        signingkey = "~/.ssh/id_ed25519.pub";
+      };
+      gpg.format = "ssh";
+      init.defaultBranch = "master";
+    };
+  };
+}
+```
+
+# Tools used
+
+ - [nix][nix]
+ - [home-manager][hm]
+
+[hm]: https://nix-community.github.io/home-manager/index.html
+[hm-search]: https://mipmip.github.io/home-manager-option-search/
+[nix]: https://nixos.org
+

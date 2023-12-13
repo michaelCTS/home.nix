@@ -60,11 +60,10 @@ else
   _e ./init.sh
 
   # Setup home-manager
-  _e mkdir -p .config/home-manager
-  scp ../home.nix workstation:.config/home-manager/
-  _e rm -rf .config/home-manager/specific
-  scp -r home-manager/ workstation:.config/home-manager/specific
-  _e -- find -type f -name '*.backup' -delete
+  _e mkdir -p .config
+  _e rm -rf .confing/home-manager
+  scp -r home-manager/ workstation:.config/home-manager
+  scp -r ../common/ workstation:.config/home-manager/common
   _e home-manager switch -b backup
 fi
 

@@ -10,7 +10,9 @@ in
   home.username = "michael";
   home.homeDirectory = "/home/michael";
 
-  imports = specificImport;
+  imports = [
+    ./common
+  ] ++ specificImport;
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -25,14 +27,8 @@ in
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    bat
-    curl
-    fd
-    htop
-    lazygit
     ltrace
     ps_mem
-    ripgrep
     strace
     wget
 

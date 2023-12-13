@@ -8,11 +8,17 @@ let
 in
 {
   imports = [
+    ./common
     ./ssh.nix
     ./vnc.nix
   ] ++ specificImport ;
-  home.username = lib.mkForce "user";
-  home.homeDirectory = lib.mkForce "/home/user";
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
+
+  home.username = "user";
+  home.homeDirectory = "/home/user";
+  home.stateVersion = "23.05"; # Please read the comment before changing.
+
   home.packages = with pkgs; [
     dbeaver
     jetbrains.pycharm-professional
