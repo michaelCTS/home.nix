@@ -61,7 +61,7 @@ else
 
   # Setup home-manager
   _e mkdir -p .config
-  _e rm -rf .confing/home-manager
+  _e rm -rf .config/home-manager
   scp -r home-manager/ workstation:.config/home-manager
   scp -r ../common/ workstation:.config/home-manager/common
   _e home-manager switch -b backup
