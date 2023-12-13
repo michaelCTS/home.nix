@@ -10,7 +10,6 @@
     fd
     htop
     lazygit
-    ps_mem
     ripgrep
     wget
   ];
