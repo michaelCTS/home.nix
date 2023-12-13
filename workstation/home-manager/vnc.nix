@@ -34,7 +34,7 @@ in
     enable = true;
     target = ".vnc/turbovncserver.conf";
     text = ''
-geometry=1920x1080
+$geometry = "1920x1080";
     '';
   };
   xdg.configFile."openbox-autostart" = {
