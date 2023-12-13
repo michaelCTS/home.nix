@@ -30,7 +30,7 @@ Host workstation
   Hostname localhost
   User user
   Port 2323
-  LocalForward 15901 127.0.0.1:5901  # forward VNC port
+  LocalForward 5900 127.0.0.1:5999  # forward VNC port
   LocalForward 8080 127.0.0.1:8080   # forward noVNC port
 ```
 
@@ -70,5 +70,5 @@ Simply open your favorite browser at http://localhost:8080/vnc.html?host=127.0.0
 
 ### Desktop client
 
-If you have a fast connection, open your favorite RDC client and open vnc://localhost:15901
+If you have a fast connection, open your favorite RDC client and open vnc://localhost:5900
 
