@@ -10,6 +10,7 @@
     fd
     htop
     lazygit
+    nix-index # Allows finding commands in nix packages
     ripgrep
     wget
   ];
