@@ -64,6 +64,7 @@ else
   _e rm -rf .config/home-manager
   scp -r home-manager/ workstation:.config/home-manager
   scp -r ../common/ workstation:.config/home-manager/common
+  _e -- find -maxdepth 2 -name "*.backup" -delete
   _e home-manager switch -b backup
 fi
 
